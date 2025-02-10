@@ -42,7 +42,7 @@ function getHumanChoice(inputs=properInputs) {
       const userInput = prompt("Choose your move! Rock, Paper, or Scissors?").trim().toLowerCase();
 
       if (!inputs.includes(userInput)) {
-        throw TypeError;
+        throw new TypeError();
 
       } else {
         return userInput;
@@ -63,6 +63,16 @@ function playRound(humanChoice, computerChoice, matches=possibleMatches) {
     return "draw";
   } else {
     return matches[humanChoice][computerChoice];
+  }
+}
+
+function declareWinner(human, comp) {
+  if (human > comp) {
+    return "You won the game!";
+  } else if (human < comp) {
+    return "The computer won, better luck next time!";
+  } else {
+    return "It's a draw!";
   }
 }
 
@@ -97,6 +107,9 @@ function playGame(games=5) {
     console.log(message);
     console.log(`Current score: computer ${computerScore} | you ${humanScore}`);
   }
+
+  const finalMessage = declareWinner(humanScore, computerScore);
+  console.log(finalMessage);
 }
 
 playGame();

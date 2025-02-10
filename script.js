@@ -6,7 +6,7 @@ function capitalize(str) {
 
 
 
-// Useful Variables
+// Global Variables
 
 const properInputs = ["rock", "paper", "scissors"];
 
@@ -24,6 +24,9 @@ const possibleMatches = {
     paper: "human-win"
   }
 };
+
+let humanScore = 0;
+let computerScore = 0;
 
 
 
@@ -77,9 +80,6 @@ function declareWinner(human, comp) {
 }
 
 function playGame(games=5) {
-  let humanScore = 0;
-  let computerScore = 0;
-
   for (let round = 1; round < games + 1; round++) {
     const humanChoice = getHumanChoice();
     const computerChoice = getComputerChoice();

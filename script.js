@@ -33,7 +33,7 @@ function getHumanChoice() {
 
     try {
       const properInputs = ["Rock", "Paper", "Scissors"];
-      const userInput = prompt("Choose your move! Rock, Paper, or Scissors?").trim().capitalize();
+      const userInput = capitalize(prompt("Choose your move! Rock, Paper, or Scissors?").trim());
 
       if (!properInputs.includes(userInput)) {
         throw TypeError;

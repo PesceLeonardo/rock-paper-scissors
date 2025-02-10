@@ -25,7 +25,7 @@ function getHumanChoice() {
 
     try {
       const properInputs = ["Rock", "Paper", "Scissors"];
-      const userInput = prompt("Choose your move! Rock, Paper, or Scissors?");
+      const userInput = prompt("Choose your move! Rock, Paper, or Scissors?").trim();
 
       if (!properInputs.includes(userInput)) {
         throw TypeError;
@@ -41,3 +41,13 @@ function getHumanChoice() {
 }
 
 console.log(getHumanChoice());
+
+String.prototype.capitalize = function(number=1, allWords=false) {
+  const string = String(this);
+  if (allWords) {
+    return string.split(" ").map(str => str.slice(0, number).toUpperCase() + str.slice(number).toLowerCase()).join(" ");
+  } else {
+    return string.slice(0, number).toUpperCase() + string.slice(number).toLowerCase()
+  }
+}
+

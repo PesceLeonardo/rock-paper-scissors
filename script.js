@@ -1,14 +1,23 @@
-// Util Functions
-
-function capitalize(str) {
-  return str[0].toUpperCase() + str.slice(1).toLowerCase();
-}
-
-
-
 // Global Variables
 
-const buttons = document.querySelectorAll(".button");
+// DOM Elements
+
+const buttons = document.querySelectorAll("#buttons .button");
+const roundResultParagraph = document.querySelector("#result-paragraph");
+
+const humanScoreSpan = document.querySelector("#human");
+const computerScoreSpan = document.querySelector("#computer");
+
+const computerMove = document.querySelector("#computer-move");
+let humanMove = document.querySelector("#human-move");
+
+const humanChoiceAndGameEndText = document.querySelector("#human-choice");
+
+const playAgainButton = document.querySelector("#reset");
+
+// Logic Variables
+
+let game = true
 
 const properInputs = ["rock", "paper", "scissors"];
 
@@ -32,6 +41,8 @@ let computerScore = 0;
 
 let userInput;
 
+let round = 0;
+
 
 
 // Input Functions
@@ -42,14 +53,11 @@ function getComputerChoice(inputs=properInputs) {
   return inputs[dice];
 }  
 
-buttons.forEach(btn => {
-  btn.addEventListener("click", function(e) {
-    userInput = btn.id;
-    console.log(userInput);
-  })
-});
+
 
 // Logic Functions
+
+// Round Result
 
 function playRound(humanChoice, computerChoice, matches=possibleMatches) {
   if (humanChoice === computerChoice) {
@@ -59,48 +67,80 @@ function playRound(humanChoice, computerChoice, matches=possibleMatches) {
   }
 }
 
-function declareWinner(human, comp) {
-  if (human > comp) {
-    return "You won the game!";
-  } else if (human < comp) {
-    return "The computer won, better luck next time!";
+// Game Result
+
+function declareWinner(humanPoints, computerPoints) {
+  if (humanPoints > computerPoints) {
+    return "You won the game! 🏆";
+  } else if (humanPoints < computerPoints) {
+    return "The computer won, better luck next time! 💥";
   } else {
-    return "It's a draw!";
+    return "It's a draw! 🤝";
   }
 }
 
-function playGame(games=5) {
-  for (let round = 1; round < games + 1; round++) {
-    const humanChoice = getHumanChoice();
-    const computerChoice = getComputerChoice();
-    const result = playRound(humanChoice, computerChoice);
+// Determines text of Round Result
 
-    console.log(`The computer has selected "${capitalize(computerChoice)}"`);
-    console.log(`You have selected "${capitalize(humanChoice)}"`);
-
-    let message;
-    switch (result) {
-      case "draw":
-        message = "It's a draw!";
-        break;
-
+function roundResults(result) {
+  let text;
+  switch (result) {
+    case "draw":
+      text = "It's a draw!"
+      break;
+      
       case "human-win":
-        message = "You win!";
+        text = "You win! 🎉";
         humanScore++;
-        break;
+      break;
 
-      case "computer-win":
-        message = "The computer wins...";
-        computerScore++;
-        break;
-    }
-    console.log(message);
-    console.log(`Current score: computer ${computerScore} | you ${humanScore}`);
+    case "computer-win":
+      text = "The computer wins... ❌";
+      computerScore++;
+      break;
   }
-
-  const finalMessage = declareWinner(humanScore, computerScore);
-  console.log(finalMessage);
+  round++;
+  return text;
 }
 
-playGame();
+// Reset Function
 
+function playAgain() {
+  game = true;
+  humanScore = 0;
+  computerScore = 0;
+  round = 0;
+  userInput = null;
+  humanChoiceAndGameEndText.innerHTML = 'You chose <span id="human-move">a move</span>!';
+  humanMove = document.querySelector("#human-move");
+}
+
+
+
+// Main Game Function
+
+buttons.forEach(btn => {
+  btn.addEventListener("click", function(e) {
+    if (game) {
+      const computerInput = getComputerChoice();
+      userInput = btn.id;
+
+      computerMove.textContent = computerInput;
+      humanMove.textContent = userInput;
+
+      // Round
+      const result = playRound(userInput, computerInput);
+      roundResultParagraph.textContent = roundResults(result);
+
+      humanScoreSpan.textContent = humanScore;
+      computerScoreSpan.textContent = computerScore;
+
+      if (round >= 5) {
+        const winnerText = declareWinner(humanScore, computerScore);
+        humanChoiceAndGameEndText.textContent = winnerText;
+        game = false;
+      }
+    }
+  })
+});
+
+playAgainButton.addEventListener("click", playAgain);

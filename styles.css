@@ -57,6 +57,16 @@ header h1 {
   gap: 16px;
 }
 
+#scores {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#computer-move {
+  font-family: pixelBold, monospace;
+}
+
 #buttons {
   padding: 16px 80px;
 
@@ -77,4 +87,16 @@ header h1 {
 
 .button:hover {
   background-color: grey;
+}
+
+#human-choice {
+  padding: 8px 80px;
+  margin: 16px 32px;
+
+  border: 6px groove rgb(130, 130, 130);
+  background-color: white;
+}
+
+#human-move {
+  font-family: pixelBold, monospace;
 }

@@ -15,10 +15,12 @@
     <div id="content">
       <h2>Score</h2>
       <div id="scores">
-        Player: <span class="score" id="human">1</span>
-        Computer: <span class="score" id="computer">2</span>
-        <p>The computer chose rock!</p>
-        <p>You won!</p>
+        <div>
+          Player: <span class="score" id="human">0</span>
+          Computer: <span class="score" id="computer">0</span>
+        </div>
+        <p id="computer-choice">The computer chose <span id="computer-move">a move</span>! 💻</p>
+        <p id="result-paragraph">Results!</p>
       </div>
     </div>
     <div id="buttons">
@@ -26,6 +28,8 @@
       <button class="button" id="paper">Paper ✋</button>
       <button class="button" id="scissors">Scissors ✌️</button>
     </div>
+    <p id="human-choice">You chose <span id="human-move">a move</span>!</p>
+    <button class="button" id="reset">Play again!</button>
     <script src="./script.js"></script>
   </body>
 

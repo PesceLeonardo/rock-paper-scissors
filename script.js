@@ -8,6 +8,8 @@ function capitalize(str) {
 
 // Global Variables
 
+const buttons = document.querySelectorAll(".button");
+
 const properInputs = ["rock", "paper", "scissors"];
 
 const possibleMatches = {
@@ -28,6 +30,8 @@ const possibleMatches = {
 let humanScore = 0;
 let computerScore = 0;
 
+let userInput;
+
 
 
 // Input Functions
@@ -38,26 +42,12 @@ function getComputerChoice(inputs=properInputs) {
   return inputs[dice];
 }  
 
-function getHumanChoice(inputs=properInputs) {
-  while (true) {
-  
-    try {
-      const userInput = prompt("Choose your move! Rock, Paper, or Scissors?").trim().toLowerCase();
-
-      if (!inputs.includes(userInput)) {
-        throw new TypeError();
-
-      } else {
-        return userInput;
-      }  
-      
-    } catch {
-      alert("Not a valid move! Try again, be sure to spell it correctly.")
-    }  
-  }  
-}  
-
-
+buttons.forEach(btn => {
+  btn.addEventListener("click", function(e) {
+    userInput = btn.id;
+    console.log(userInput);
+  })
+});
 
 // Logic Functions
 
